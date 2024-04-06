@@ -1,21 +1,32 @@
 pipeline {
-  agent any
-  stages {
-    stage("Build"){
-      steps {
-        echo "Building the application"
-      }
+    agent any
+    stages {
+        stage("Build") {
+            steps {
+                echo "Starting the build"
+            }
+        }
+        stage("Test") {
+            steps {
+                echo "Testing the build"
+            }
+        }
+        stage("Deploy") {
+            steps {
+                echo "Deploying the build"
+            }
+        }
     }
-    stage("Test"){
-      steps {
-        echo "Testing the application"
-      }
+
+    post {
+        always {
+            echo "Mandatory- after build"
+        }
+        success {
+            echo "Deployed successfully and no errors found"
+        }
+        failure {
+            echo "Pipeline failed cannot be deployed"
+        }
     }
-    stage("Deploy"){
-      steps {
-        echo "Deploying the application"
-      }
-    }
-    
-  }
 }
